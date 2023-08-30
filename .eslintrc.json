@@ -1,0 +1,179 @@
+{
+    "ignorePatterns": [
+        "**/*.js"
+    ],
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "project": [
+            "**/tsconfig.json"
+        ],
+        "extraFileExtensions": [
+            ".svelte"
+        ],
+        "sourceType": "module"
+    },
+    "extends": [
+        "eslint:recommended",
+        "plugin:@typescript-eslint/recommended",
+        "plugin:@typescript-eslint/recommended-requiring-type-checking",
+        "plugin:svelte/recommended"
+    ],
+    "rules": {
+        /* eslint */
+        "eol-last": [
+            "warn",
+            "always"
+        ],
+        "eqeqeq": [
+            "warn",
+            "always"
+        ],
+        "no-multiple-empty-lines": [
+            "warn",
+            {
+                "max": 1,
+                "maxBOF": 0,
+                "maxEOF": 0
+            }
+        ],
+        "quotes": [
+            "warn",
+            "single",
+            {
+                "avoidEscape": true
+            }
+        ],
+        // required by Svelte due to `import` & `import type`
+        //"no-duplicate-imports": "warn",
+        "no-self-compare": "warn",
+        "no-template-curly-in-string": "warn",
+        "no-unmodified-loop-condition": "warn",
+        "no-unused-private-class-members": "warn",
+        "default-case": "warn",
+        "curly": "warn",
+        "default-case-last": "warn",
+        "default-param-last": [
+            "error"
+        ],
+        "guard-for-in": "warn",
+        "no-console": "warn",
+        "no-else-return": "warn",
+        "no-eval": "error",
+        "no-implied-eval": "error",
+        "no-lonely-if": "warn",
+        "no-multi-assign": "warn",
+        "no-nested-ternary": "warn",
+        "no-return-assign": "warn",
+        "no-return-await": "warn",
+        "no-script-url": "warn",
+        // required by svelte `$: variable, doSomething();`
+        //"no-sequences": "warn",
+        "no-unneeded-ternary": "warn",
+        "no-useless-return": "warn",
+        "no-var": "warn",
+        "brace-style": [
+            "warn",
+            "1tbs"
+        ],
+        "max-len": [
+            "warn",
+            {
+                "code": 200,
+                "ignoreStrings": true,
+                "ignorePattern": "^import .*"
+            }
+        ],
+        /* @typescript-eslint */
+        "@typescript-eslint/no-triple-slash-reference": "off",
+        "@typescript-eslint/no-namespace": "off",
+        "@typescript-eslint/consistent-type-imports": "error",
+        //
+        // svelte rules
+        // svelte has some limitation in type-aware mode
+        //
+        "@typescript-eslint/ban-ts-comment": [
+            "error",
+            {
+                "ts-expect-error": true,
+                "ts-ignore": "allow-with-description",
+                "ts-nocheck": true,
+                "ts-check": false
+            }
+        ],
+        "@typescript-eslint/no-unsafe-assignment": "off",
+        "@typescript-eslint/no-unsafe-argument": "off",
+        "@typescript-eslint/no-unsafe-member-access": "off",
+        // Note: you must disable the base rule as it can report incorrect errors
+        "no-use-before-define": "off",
+        "@typescript-eslint/no-use-before-define": "error",
+        "@typescript-eslint/restrict-template-expressions": [
+            "error",
+            {
+                "allowNumber": true,
+                "allowBoolean": false,
+                "allowAny": false,
+                "allowNullish": true,
+                "allowRegExp": false
+            }
+        ],
+        "no-unused-vars": "off",
+        "@typescript-eslint/no-unused-vars": [
+            "warn", // or "error"
+            {
+                "argsIgnorePattern": "^_",
+                "varsIgnorePattern": "^_",
+                "caughtErrorsIgnorePattern": "^_"
+            }
+        ],
+        "svelte/no-spaces-around-equal-signs-in-attribute": "warn",
+        "svelte/no-unused-svelte-ignore": "off",
+        "svelte/require-event-dispatcher-types": "warn",
+        "svelte/require-optimized-style-attribute": "warn",
+        "svelte/require-stores-init": "warn",
+        "svelte/spaced-html-comment": [
+            "warn",
+            "always" // or "never"
+        ],
+        "no-trailing-spaces": "off", // Don't need ESLint's no-trailing-spaces rule, so turn it off.
+        "semi": "warn",
+        "svelte/no-trailing-spaces": [
+            "warn",
+            {
+                "skipBlankLines": false,
+                "ignoreComments": false
+            }
+        ],
+        "svelte/valid-compile": "off"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "overrides": [
+        {
+            "files": [
+                "*.svelte"
+            ],
+            "parser": "svelte-eslint-parser",
+            "parserOptions": {
+                "parser": "@typescript-eslint/parser"
+            }
+        }
+    ],
+    "globals": {
+        // svelte reactive block $: does not recognize global variables, as in $: { console.log('...') }
+        "console": "readonly",
+        //
+        "window": "readonly",
+        "setTimeout": "readonly",
+        "clearTimeout": "readonly",
+        "document": "readonly",
+        "location": "readonly",
+        "structuredClone": "readonly"
+    }
+    /* prefer "globals" over "env" to keep the global variables at minimum
+    "env": {
+        "browser": true,
+        "node": true
+    }
+    */
+}
